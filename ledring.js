@@ -40,7 +40,7 @@ class Ledring {
 				// Homey.app.log('Animation registered!');
 				// myAnimation.start();
 				// register the screensaver with Homey
-				this.myAnimation.registerScreensaver('smile_power')
+				this.myAnimation.registerScreensaver('domoticz_p1_power')
 					.then(() => {
 						Homey.app.log('screensaver registered!');
 					})

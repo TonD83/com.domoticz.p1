@@ -1,16 +1,20 @@
 {
 	"pair": {
 		"title": "Add device",
-		"intro": "Enter the IP address and ID of the Smile P1.",
+		"intro": "Enter the details of the Domoticz electricity and gas devices.",
 		"host": "IP address",
-		"smileId": "Smile ID",
-		"required": "The IP address and SmileId are required",
+		"port": "Port",
+		"username": "Username",
+		"password": "Password",
+		"electricityId": "Electricity device ID",
+		"gasId": "Gas device ID",
+		"required": "The IP address, port, username, password and device IDs are required.",
 		"testSettings": "Save",
 		"success": "Success!"
 	},
 	"settings": {
 		"app": {
-			"title": "Plugwise Smile P1 Debug Logs",
+			"title": "Domoticz P1 Debug Logs",
 			"logs": "Logs",
 			"getlogs": "Refresh logs"
 		}

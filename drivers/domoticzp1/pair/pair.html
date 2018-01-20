@@ -1,0 +1,86 @@
+<script>
+Homey.setTitle( __('pair.title') );
+
+function testSettings () {
+	// variables
+	var host = document.getElementById( 'host' ).value;
+	var port = document.getElementById( 'port' ).value;
+	var username = document.getElementById( 'username' ).value;
+	var password = document.getElementById( 'password' ).value;
+	var electricityId = document.getElementById( 'electricityId' ).value;
+	var gasId = document.getElementById( 'gasId' ).value;
+	if ((host != '') && (port != '') && (username != '') && (password != '') && (gasId != '') && (electricityId != '')) {
+		var settings = {
+			domoticzIp: host,
+			port: port,
+			username: username,
+			password: password,
+			electricityId: electricityId,
+			gasId: gasId,
+			ledring_usage_limit : 3000,
+			ledring_production_limit : 3000,
+		};
+		// Continue to back-end, pass along data
+		Homey.emit( 'validate', settings, function( err, result ){
+			if (err) {
+				console.log(err);
+				Homey.alert(err.message, 'error');
+			} else {
+				Homey.alert(__('pair.success')+ result, 'info');
+				var device = {
+					name: `Domoticz P1`,
+					data: { id: 1232131232432 },
+					settings: settings
+				};
+				Homey.addDevice(device, function( err, result ){
+		    	if( err ) {	Homey.alert(err, 'error'); return }
+					setTimeout(function () {
+						Homey.done();
+					}, 5000);
+
+				});
+			}
+		});
+	} else {
+		Homey.alert(__('pair.required'), 'error');
+		// Homey.done();
+	}
+}
+</script>
+
+    <p data-i18n="pair.intro">enter IP address</p>
+
+		<table class="pairSettings">
+			<tr>
+				<td style="width:100px;" data-i18n="pair.host">host</td>
+				<td><input id="host" type="text" value="" placeholder="e.g. 192.168.1.1"/></td>
+			</tr>
+			<tr>
+				<td style="width:100px;" data-i18n="pair.port">host</td>
+				<td><input id="port" type="text" value="" placeholder="Port (e.g. 8080)"/></td>
+			</tr>
+			<tr>
+				<td style="width:100px;" data-i18n="pair.username">host</td>
+				<td><input id="username" type="text" value="" placeholder="Username"/></td>
+			</tr>
+			<tr>
+				<td style="width:100px;" data-i18n="pair.password">password</td>
+				<td><input id="password" type="password" value="" placeholder="Password"/></td>
+			</tr>
+			<tr>
+				<td style="width:100px;" data-i18n="pair.electricityId">device ID electricity (e.g. 66)</td>
+				<td><input id="electricityId" type="text" value="" placeholder="66"/></td>
+			</tr>
+			<tr>
+				<td style="width:100px;" data-i18n="pair.gasId">device ID gas (e.g. 67, see Domoticz devices)</td>
+				<td><input id="gasId" type="text" value="" placeholder="67"/></td>
+			</tr>
+		</table>
+
+		<p>
+		&nbsp;
+	  </p>
+
+<fieldset>
+    <button class="button" data-i18n="pair.testSettings" onclick="testSettings()">Save</button>
+</fieldset>

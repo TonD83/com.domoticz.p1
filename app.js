@@ -4,13 +4,12 @@ const Homey = require('homey');
 const Ledring = require('./ledring.js');
 const fs = require('fs');
 const StdOutFixture = require('fixture-stdout');
-// const SmileP1 = require('./smileP1.js');
 
-class MyApp extends Homey.App {
+class DomoticzP1App extends Homey.App {
 
 	onInit() {
 		this.initLogCapture();
-		this.log('Plugwise Smile P1 App is running!');
+		this.log('Domoticz P1 App is running!');
 		this.ledring = new Ledring();
 
 		process.on('unhandledRejection', (error) => {
@@ -21,9 +20,6 @@ class MyApp extends Homey.App {
 			// save logs to persistant storage
 			this.setLogFile();
 		});
-
-		// this.smile = new SmileP1('', '');	// smileId, host, port
-		// this.testSmile();
 	}
 
 	// capture all logs for frontend
@@ -86,10 +82,10 @@ class MyApp extends Homey.App {
 		// captureStderr.release();
 	}
 
-	async testSmile() {
+	async testDomoticzP1() {
 		try {
 			// get the meter values
-			const meter = await this.smile.getMeter();
+			const meter = await this.domoticzP1.getMeter();
 			console.log(meter);
 
 		}	catch (error) {
@@ -99,4 +95,4 @@ class MyApp extends Homey.App {
 
 }
 
-module.exports = MyApp;
+module.exports = DomoticzP1App;

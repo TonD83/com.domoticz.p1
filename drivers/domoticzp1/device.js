@@ -2,7 +2,7 @@
 
 const Homey = require('homey');
 
-class SmileP1Device extends Homey.Device {
+class DomoticzP1Device extends Homey.Device {
 
 	// this method is called when the Device is inited
 	async onInit() {
@@ -16,8 +16,15 @@ class SmileP1Device extends Homey.Device {
 			const settings = this.getSettings();
 			this.meters = {};
 			this.initMeters();
-			// create smile session
-			this.smile = new this._driver.Smile(settings.smileId, settings.smileIp);
+			// create domoticzP1 session
+			this.domoticzP1 = new this._driver.P1(
+				settings.domoticzIp,
+				settings.port,
+				settings.username,
+				settings.password,
+				settings.electricityId,
+				settings.gasId
+			);
 			// register trigger flow cards of custom capabilities
 			this.tariffChangedTrigger = new Homey.FlowCardTriggerDevice('tariff_changed')
 				.register();
@@ -52,34 +59,47 @@ class SmileP1Device extends Homey.Device {
 
 	// this method is called when the Device is added
 	onAdded() {
-		this.log(`SmileP1 added as device: ${this.getName()}`);
+		this.log(`DomoticzP1 added as device: ${this.getName()}`);
 	}
 
 	// this method is called when the Device is deleted
 	onDeleted() {
 		// stop polling
 		clearInterval(this.intervalIdDevicePoll);
-		this.log(`SmileP1 deleted as device: ${this.getName()}`);
+		this.log(`DomoticzP1 deleted as device: ${this.getName()}`);
 	}
 
 	onRenamed(name) {
-		this.log(`SmileP1 renamed to: ${name}`);
+		this.log(`DomoticzP1 renamed to: ${name}`);
 	}
 
 	// this method is called when the user has changed the device's settings in Homey.
 	onSettings(oldSettingsObj, newSettingsObj, changedKeysArr, callback) {
 		this.log('settings change requested by user');
-		this.log(newSettingsObj);
-		this.smile.getMeter(newSettingsObj.smileIp, newSettingsObj.smileIp)
-			.then(() => {		// new settings are correct
-				this.log(`${this.getName()} device settings changed`);
-				// do callback to confirm settings change
-				callback(null, true);
-				this.restartDevice();
-			})
+		// this.log(newSettingsObj);
+		this.domoticzP1.getMeter(
+			newSettingsObj.domoticzIp,
+			newSettingsObj.port,
+			newSettingsObj.username,
+			newSettingsObj.password,
+			newSettingsObj.electricityId,
+			newSettingsObj.gasId
+		).then(() => {		// new settings are correct
+			this.log(`${this.getName()} device settings changed`);
+			// do callback to confirm settings change
+			callback(null, true);
+			this.restartDevice();
+		})
 			.catch((error) => {		// new settings are incorrect
 				this.log(error.message);
-				this.smile.getMeter(oldSettingsObj.smileIp, oldSettingsObj.smileIp);
+				this.domoticzP1.getMeter(
+					oldSettingsObj.domoticzIp,
+					oldSettingsObj.port,
+					oldSettingsObj.username,
+					oldSettingsObj.password,
+					oldSettingsObj.electricityId,
+					oldSettingsObj.gasId
+				);
 				return callback(error);
 			});
 	}
@@ -88,9 +108,12 @@ class SmileP1Device extends Homey.Device {
 		// this.log('polling for new readings');
 		try {
 			let readings = {};
-			readings = await this.smile.getMeter();
+			let gasReadings = {};
+			readings = await this.domoticzP1.getMeter();
+			gasReadings = await this.domoticzP1.getGasMeter();
 			this.setAvailable();
 			this.handleNewReadings(readings);
+			this.handleNewReadings(gasReadings);
 		} catch (error) {
 			this.watchDogCounter -= 1;
 			this.log(`advanced status doPoll error: ${error}`);
@@ -147,4 +170,4 @@ class SmileP1Device extends Homey.Device {
 
 }
 
-module.exports = SmileP1Device;
+module.exports = DomoticzP1Device;

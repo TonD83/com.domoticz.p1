@@ -1,26 +1,26 @@
 {
-  "id": "com.plugwise.smile",
+  "id": "com.domoticz.p1",
   "name": {
-    "en": "Plugwise Smile P1",
-    "nl": "Plugwise Smile P1"
+    "en": "Domoticz P1",
+    "nl": "Domoticz P1"
   },
 
   "description": {
-    "en": "Imports data from the Plugwise Smile P1 energy meter",
-    "nl": "Leest data van de Plugwise Smile P1 energie meter"
+    "en": "Imports data from a Domoticz P1 energy meter",
+    "nl": "Leest data van een Domoticz P1 energie meter"
   },
 
-  "version": "2.0.0",
+  "version": "0.0.1",
 	"sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
-    "name": "Robin Gruijter",
-    "email": "gruijter@hotmail.com"
+    "name": "Ton Dumans",
+    "email": "ton@dumans.nl"
   },
 	"contributing": {
 		"donate": {
 			"paypal": {
-				"username": "gruijter"
+				"username": ""
 			}
 		}
 	},
@@ -67,14 +67,14 @@
 
   "drivers": [
     {
-      "id": "smilep1",
+      "id": "domoticzp1",
       "name": {
-        "en": "SmileP1",
-        "nl": "SmileP1"
+        "en": "Domoticz P1 energy meter",
+        "nl": "Domoticz P1 Slimme meter"
       },
       "images": {
-        "large": "./drivers/smilep1/assets/images/large.jpg",
-        "small": "./drivers/smilep1/assets/images/small.jpg"
+        "large": "./drivers/domoticzp1/assets/images/large.jpg",
+        "small": "./drivers/domoticzp1/assets/images/small.jpg"
       },
       "class": "sensor",
       "capabilities": [
@@ -136,8 +136,8 @@
             ],
             "options": {
               "icons": {
-                "measure_gas": "./drivers/smilep1/assets/images/gas_icon.svg",
-                "meter_offPeak": "./drivers/smilep1/assets/images/offPeak_icon.svg"
+                "measure_gas": "./drivers/domoticzp1/assets/images/gas_icon.svg",
+                "meter_offPeak": "./drivers/domoticzp1/assets/images/offPeak_icon.svg"
               },
               "meter_offPeak":{
                 "noblink": true,
@@ -164,24 +164,6 @@
         }
       ],
       "settings": [
-				{
-					"type": "group",
-					"label": {
-						"en": "Device information",
-						"nl": "Device informatie"
-					},
-					"children": [
-						{
-              "id": "smileId",
-              "type": "label",
-              "label": {
-                "en": "Smile ID",
-                "nl": "Smile ID"
-              },
-              "value": "bcdfghjk"
-            }
-					]
-				},
         {
           "type": "group",
           "label": {
@@ -190,13 +172,58 @@
           },
           "children": [
             {
-              "id": "smileIp",
+              "id": "domoticzIp",
               "type": "text",
               "label": {
 								"en": "URL or IP address",
                 "nl": "URL of IP adres"
               },
               "value": "0.0.0.0"
+            },
+            {
+              "id": "port",
+              "type": "text",
+              "label": {
+								"en": "Port",
+                "nl": "Poort"
+              },
+              "value": "8080"
+            },
+            {
+              "id": "electricityId",
+              "type": "text",
+              "label": {
+								"en": "DeviceID electricity meter",
+                "nl": "DeviceID elektriciteitsmeter"
+              },
+              "value": "51"
+            },
+            {
+              "id": "gasId",
+              "type": "text",
+              "label": {
+								"en": "DeviceID gas meter",
+                "nl": "DeviceID gasmeter"
+              },
+              "value": "50"
+            },
+            {
+              "id": "username",
+              "type": "text",
+              "label": {
+								"en": "Username",
+                "nl": "Gebruikersnaam"
+              },
+              "value": "pietjepuk"
+            },
+            {
+              "id": "password",
+              "type": "password",
+              "label": {
+								"en": "Password",
+                "nl": "Wachtwoord"
+              },
+              "value": ""
             },
             {
               "id": "pollingInterval",
@@ -253,9 +280,9 @@
         },
         "args": [
           {
-            "name": "Smile",
+            "name": "Domoticz P1",
             "type": "device",
-            "filter": "driver_id=smilep1",
+            "filter": "driver_id=domoticzp1",
             "placeholder": {
               "en": "Which device",
               "nl": "Welk apparaat"
@@ -282,9 +309,9 @@
         },
         "args": [
           {
-            "name": "Smile",
+            "name": "Domoticz P1",
             "type": "device",
-            "filter": "driver_id=smilep1",
+            "filter": "driver_id=domoticzp1",
             "placeholder": {
               "en": "Which device",
               "nl": "Welk apparaat"
@@ -322,9 +349,9 @@
         },
         "args": [
           {
-            "name": "Smile",
+            "name": "Domoticz P1",
             "type": "device",
-            "filter": "driver_id=smilep1",
+            "filter": "driver_id=domoticzp1",
             "placeholder": {
               "en": "Which device",
               "nl": "Welk apparaat"
@@ -336,10 +363,10 @@
   },
   "screensavers": [
 		{
-			"name": "smile_power",
+			"name": "domoticz_p1_power",
 			"title": {
-				"en": "Plugwise Smile P1 Power",
-				"nl": "Plugwise Smile P1 Energie"
+				"en": "Domoticz P1 Power",
+				"nl": "Domoticz P1 Energie"
 			}
 		}
   ],

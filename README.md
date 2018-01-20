@@ -1,7 +1,6 @@
-# Plugwise smile P1 #
+# Domoticz P1 USB #
 
-Homey app to integrate Plugwise Smile P1 energy meter. A direct connection over
-IP is used, so there is no need for the Plugwise Stretch.
+Homey app to integrate a P1 energy meter connected to a Domoticz server. Special thanks to the creator of the Plugwise Smile P1 app. This app is merely a small variation to that app, so all credits should go to Robin Gruijter.
 
 The app logs and provides flow cards for the following data:
 - Actual power usage/production (W, 10s interval)
@@ -19,25 +18,13 @@ The power is totalized for consumed and produced power, during off-peak and
 peak hours. Production to the powergrid is displayed as negative watts.
 Only changed values are logged.
 
-To setup go to "Devices" and enter the IP-address and Smile ID. The ID can be
-found printed on the device, or can be found in the original app from Plugwise.
+To setup go to "Devices" and enter the IP-address, port, username, password and Domoticz device IDs.
 The polling interval can be changed in the device settings.
 
-##### Donate: #####
-If you like the app you can show your appreciation by posting it in the [forum],
-and if you really like it you can buy me a beer. Feature requests can be placed
-on the [forum].
-
-[![Paypal donate][pp-donate-image]][pp-donate-link]
 ===============================================================================
 
 Version changelog
 
 ```
-v2.0.0	2018.01.14 Complete rewrite to sdk2.
-v1.1.2  2017.04.19 Added polling interval setting
-v0.9.5  2016.06.01 Initial release
+v0.0.1  2018.01.20 Initial release
 ```
-[forum]: https://forum.athom.com/discussion/1587
-[pp-donate-link]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=M9M847YNL7SB2
-[pp-donate-image]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif
