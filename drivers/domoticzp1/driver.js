@@ -15,7 +15,7 @@ class DomoticzP1Driver extends Homey.Driver {
 			try {
 				this.log('save button pressed in frontend');
 				const p1 = new this.P1(data.domoticzIp, data.port, data.username, data.password, data.electricityId, data.gasId);
-				this.log(p1);
+				// this.log(p1);
 				// try to get status
 				await p1.getMeter()
 					.then(() => {
@@ -97,7 +97,7 @@ class DomoticzP1Driver extends Homey.Driver {
 				this.tariffChangedTrigger
 					.trigger(this, tokens)
 					.catch(this.error);
-				// .then(this.log('Tariff change flow card triggered'));
+				// .then(this.error('Tariff change flow card triggered'));
 			}
 			if (measurePower !== this.meters.lastMeasurePower) {
 				const tokens = {
@@ -107,7 +107,7 @@ class DomoticzP1Driver extends Homey.Driver {
 				this.powerChangedTrigger
 					.trigger(this, tokens)
 					.catch(this.error);
-				// .then(this.log('Power change flow card triggered'));
+				// .then(this.error('Power change flow card triggered'));
 				// update the ledring screensavers
 				this._ledring.change(this.getSettings(), this.meters.lastMeasurePower);
 			}

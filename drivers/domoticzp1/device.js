@@ -53,7 +53,7 @@ class DomoticzP1Device extends Homey.Device {
 				}
 			}, 1000 * settings.pollingInterval);
 		} catch (error) {
-			this.log(error);
+			this.error(error);
 		}
 	}
 
@@ -91,7 +91,7 @@ class DomoticzP1Device extends Homey.Device {
 			this.restartDevice();
 		})
 			.catch((error) => {		// new settings are incorrect
-				this.log(error.message);
+				this.error(error.message);
 				this.domoticzP1.getMeter(
 					oldSettingsObj.domoticzIp,
 					oldSettingsObj.port,
@@ -116,7 +116,7 @@ class DomoticzP1Device extends Homey.Device {
 			this.handleNewReadings(gasReadings);
 		} catch (error) {
 			this.watchDogCounter -= 1;
-			this.log(`advanced status doPoll error: ${error}`);
+			this.log(`poll error: ${error}`);
 			this.setUnavailable(error)
 				.catch(this.error);
 		}
@@ -164,7 +164,7 @@ class DomoticzP1Device extends Homey.Device {
 			// reset watchdog
 			this.watchDogCounter = 10;
 		} catch (error) {
-			this.log(error);
+			this.error(error);
 		}
 	}
 
