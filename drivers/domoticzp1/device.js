@@ -53,7 +53,7 @@ class DomoticzP1Device extends Homey.Device {
 				}
 			}, 1000 * settings.pollingInterval);
 		} catch (error) {
-			this.log(error);
+			this.error(error);
 		}
 	}
 
@@ -91,7 +91,7 @@ class DomoticzP1Device extends Homey.Device {
 			this.restartDevice();
 		})
 			.catch((error) => {		// new settings are incorrect
-				this.log(error.message);
+				this.error(error.message);
 				this.domoticzP1.getMeter(
 					oldSettingsObj.domoticzIp,
 					oldSettingsObj.port,
@@ -116,7 +116,7 @@ class DomoticzP1Device extends Homey.Device {
 			this.handleNewReadings(gasReadings);
 		} catch (error) {
 			this.watchDogCounter -= 1;
-			this.log(`advanced status doPoll error: ${error}`);
+			this.log(`Poll error: ${error}`);
 			this.setUnavailable(error)
 				.catch(this.error);
 		}
@@ -133,6 +133,7 @@ class DomoticzP1Device extends Homey.Device {
 	initMeters() {
 		this.meters = {
 			lastMeasureGas: 0,										// 'measureGas' (m3)
+			lastMeasureGasToday: 0,										// 'lastMeasureGasToday' (m3)
 			lastMeterGas: null, 									// 'meterGas' (m3)
 			lastMeterGasTm: 0,										// timestamp of gas meter reading, e.g. 1514394325
 			lastMeasurePower: 0,									// 'measurePower' (W)
@@ -149,22 +150,27 @@ class DomoticzP1Device extends Homey.Device {
 		};
 	}
 
+	precisionRound(number, precision = 0) {
+		const factor = Math.pow(10, precision);
+		return Math.round(number * factor) / factor;
+	}
+
 	updateDeviceState() {
 		// this.log(`updating states for: ${this.getName()}`);
 		try {
+			this.setCapabilityValue('measure_gas', this.precisionRound(this.meters.lastMeasureGas, 1));
 			this.setCapabilityValue('measure_power', this.meters.lastMeasurePower);
 			this.setCapabilityValue('meter_offPeak', this.meters.lastOffpeak);
-			this.setCapabilityValue('measure_gas', this.meters.lastMeasureGas);
-			this.setCapabilityValue('meter_gas', this.meters.lastMeterGas);
-			this.setCapabilityValue('meter_power', this.meters.lastMeterPower);
-			this.setCapabilityValue('meter_power.peak', this.meters.lastMeterPowerPeak);
-			this.setCapabilityValue('meter_power.offPeak', this.meters.lastMeterPowerOffpeak);
-			this.setCapabilityValue('meter_power.producedPeak', this.meters.lastMeterPowerPeakProduced);
-			this.setCapabilityValue('meter_power.producedOffPeak', this.meters.lastMeterPowerOffpeakProduced);
+			this.setCapabilityValue('meter_gas', this.precisionRound(this.meters.lastMeterGas));
+			this.setCapabilityValue('meter_power', this.precisionRound(this.meters.lastMeterPower));
+			this.setCapabilityValue('meter_power.peak', this.precisionRound(this.meters.lastMeterPowerPeak));
+			this.setCapabilityValue('meter_power.offPeak', this.precisionRound(this.meters.lastMeterPowerOffpeak));
+			this.setCapabilityValue('meter_power.producedPeak', this.precisionRound(this.meters.lastMeterPowerPeakProduced));
+			this.setCapabilityValue('meter_power.producedOffPeak', this.precisionRound(this.meters.lastMeterPowerOffpeakProduced));
 			// reset watchdog
 			this.watchDogCounter = 10;
 		} catch (error) {
-			this.log(error);
+			this.error(error);
 		}
 	}
 

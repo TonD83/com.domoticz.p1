@@ -1,12 +1,12 @@
 # Domoticz P1 USB #
 
-Homey app to integrate a P1 energy meter connected to a Domoticz server. Special thanks to the creator of the Plugwise Smile P1 app. This app is merely a small variation to that app, so all credits should go to Robin Gruijter.
+Homey app to integrate a P1 energy meter connected to a Domoticz server. Special thanks to the creator of the Plugwise Smile P1 app. This app is a small variation to that app, so (almost) all credits should go to Robin Gruijter.
 
 The app logs and provides flow cards for the following data:
 - Actual power usage/production (W, 10s interval)
 - Totalized power meter (kWh)
 - All individual power meters (kWh)
-- Recent gas usage (m3, of the previous hour)
+- Recent gas usage over the past hour (m3)
 - Gas meter (m3)
 - Tariff change (off-peak, true or false)
 
