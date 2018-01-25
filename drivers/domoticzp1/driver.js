@@ -6,7 +6,7 @@ const DomoticzP1 = require('../../domoticzP1.js');
 class DomoticzP1Driver extends Homey.Driver {
 
 	onInit() {
-		this.log('entering DomoticzP1 driver');
+		this.log('Entering DomoticzP1 driver');
 		this.P1 = DomoticzP1;
 	}
 
@@ -15,7 +15,6 @@ class DomoticzP1Driver extends Homey.Driver {
 			try {
 				this.log('save button pressed in frontend');
 				const p1 = new this.P1(data.domoticzIp, data.port, data.username, data.password, data.electricityId, data.gasId);
-				// this.log(p1);
 				// try to get status
 				await p1.getMeter()
 					.then(() => {
@@ -35,27 +34,30 @@ class DomoticzP1Driver extends Homey.Driver {
 	}
 
 	handleNewReadings(readings) {	// call with device as this
-		// this.log(`handling new readings for ${this.getName()}`);
 		// gas readings from device
 		let meterGas = this.meters.lastMeterGas;
 		let measureGas = this.meters.lastMeasureGas;
 		let meterGasTm = this.meters.lastMeterGasTm;
+		let measureGasToday = this.meters.lastMeasureGasToday;
 		if (readings.g !== undefined) {
 			meterGas = readings.g.gas; // gas_cumulative_meter
 			meterGasTm = readings.g.gasTm / 1000; // gas_meter_timestamp
-			// constructed gas readings
+			measureGasToday = readings.g.gasToday;
+
 			if (this.meters.lastMeterGasTm !== meterGasTm) {
 				if (this.meters.lastMeterGas !== null) {	// first reading after init
-					const hoursPassed = (meterGasTm - this.meters.lastMeterGasTm) / 3600;	// hrs
-					// if (hoursPassed > 1.5) { // too long ago; assume 1 hour interval
-					// 	hoursPassed = 1;
-					// }
-					measureGas = Math.round(1000 * ((meterGas - this.meters.lastMeterGas) / hoursPassed)) / 1000; // gas_interval_meter
+					measureGas = Math.round(1000 * (measureGasToday - this.meters.lastMeasureGasToday)) / 1000; // gas_interval_meter
+				}
+				if(measureGas <= 0) {
+					measureGas = undefined;
 				}
 				this.meters.lastMeterGasTm = meterGasTm;
 			}
 			// store the new readings in memory
-			this.meters.lastMeasureGas = measureGas;
+			if(measureGas) {
+				this.meters.lastMeasureGas = measureGas;
+			}
+			this.meters.lastMeasureGasToday = measureGasToday;
 			this.meters.lastMeterGas = meterGas;
 			this.meters.lastMeterGasTm = meterGasTm || this.meters.lastMeterGasTm;
 		}

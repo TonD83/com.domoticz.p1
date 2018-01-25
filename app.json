@@ -4,34 +4,48 @@
     "en": "Domoticz P1",
     "nl": "Domoticz P1"
   },
-
+  "contributors": {
+    "developers": [
+      {
+        "name": "Ton Dumans",
+        "email": "ton@dumans.nl"
+      },
+      {
+        "name": "Robin Gruijter",
+        "email": "gruijter@hotmail.com"
+      }
+    ]
+  },
   "description": {
     "en": "Imports data from a Domoticz P1 energy meter",
     "nl": "Leest data van een Domoticz P1 energie meter"
   },
-
   "version": "0.0.1",
-	"sdk": 2,
+  "sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
     "name": "Ton Dumans",
     "email": "ton@dumans.nl"
   },
-	"contributing": {
-		"donate": {
-			"paypal": {
-				"username": ""
-			}
-		}
-	},
-
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": ""
+      }
+    }
+  },
   "images": {
     "large": "./assets/images/large.jpg",
     "small": "./assets/images/small.jpg"
   },
-
-  "category": ["tools","appliances", "energy"],
-  "gtin": ["8718469270064"],
+  "category": [
+    "tools",
+    "appliances",
+    "energy"
+  ],
+  "gtin": [
+    "8718469270064"
+  ],
   "capabilities": {
     "meter_offPeak": {
       "type": "boolean",
@@ -64,7 +78,6 @@
       "setable": false
     }
   },
-
   "drivers": [
     {
       "id": "domoticzp1",
@@ -89,11 +102,11 @@
         "meter_power.producedOffPeak"
       ],
       "capabilitiesOptions": {
-  			"meter_power.peak": {
-  				"title": {
-  					"en": "Power meter peak",
-  					"nl": "Stroommeter piek"
-  				}
+        "meter_power.peak": {
+          "title": {
+            "en": "Power meter peak",
+            "nl": "Stroommeter piek"
+          }
         },
         "meter_power.offPeak": {
           "title": {
@@ -114,12 +127,11 @@
           }
         }
       },
-
       "mobile": {
         "components": [
           {
             "id": "icon",
-            "capabilities": [ ]
+            "capabilities": []
           },
           {
             "id": "sensor",
@@ -139,7 +151,7 @@
                 "measure_gas": "./drivers/domoticzp1/assets/images/gas_icon.svg",
                 "meter_offPeak": "./drivers/domoticzp1/assets/images/offPeak_icon.svg"
               },
-              "meter_offPeak":{
+              "meter_offPeak": {
                 "noblink": true,
                 "invert": false,
                 "label": {
@@ -157,9 +169,8 @@
           }
         ]
       },
-
       "pair": [
-          {
+        {
           "id": "pair"
         }
       ],
@@ -167,15 +178,15 @@
         {
           "type": "group",
           "label": {
-						"en": "Connection",
-						"nl": "Verbinding"
+            "en": "Connection",
+            "nl": "Verbinding"
           },
           "children": [
             {
               "id": "domoticzIp",
               "type": "text",
               "label": {
-								"en": "URL or IP address",
+                "en": "URL or IP address",
                 "nl": "URL of IP adres"
               },
               "value": "0.0.0.0"
@@ -184,7 +195,7 @@
               "id": "port",
               "type": "text",
               "label": {
-								"en": "Port",
+                "en": "Port",
                 "nl": "Poort"
               },
               "value": "8080"
@@ -193,7 +204,7 @@
               "id": "electricityId",
               "type": "text",
               "label": {
-								"en": "DeviceID electricity meter",
+                "en": "DeviceID electricity meter",
                 "nl": "DeviceID elektriciteitsmeter"
               },
               "value": "51"
@@ -202,7 +213,7 @@
               "id": "gasId",
               "type": "text",
               "label": {
-								"en": "DeviceID gas meter",
+                "en": "DeviceID gas meter",
                 "nl": "DeviceID gasmeter"
               },
               "value": "50"
@@ -211,7 +222,7 @@
               "id": "username",
               "type": "text",
               "label": {
-								"en": "Username",
+                "en": "Username",
                 "nl": "Gebruikersnaam"
               },
               "value": "pietjepuk"
@@ -220,7 +231,7 @@
               "id": "password",
               "type": "password",
               "label": {
-								"en": "Password",
+                "en": "Password",
                 "nl": "Wachtwoord"
               },
               "value": ""
@@ -229,54 +240,59 @@
               "id": "pollingInterval",
               "type": "number",
               "label": {
-								"en": "Polling interval (s)",
+                "en": "Polling interval (s)",
                 "nl": "Polling interval (s)"
               },
-              "attr": { "min": 10 },
+              "attr": {
+                "min": 10
+              },
               "value": 10
             }
-					]
-				},
-				{
-					"type": "group",
-					"label": {
-						"en": "Ledring",
-						"nl": "Ledring"
-					},
-					"children": [
-						{
-							"id": "ledring_usage_limit",
-							"type": "number",
-							"label": {
-								"en": "Max consumption (W)",
-								"nl": "Max gebruik (W)"
-							},
-							"attr": { "min": 0 },
-							"value": 3000
-						},
-						{
-							"id": "ledring_production_limit",
-							"type": "number",
-							"label": {
-								"en": "Max production (W)",
-								"nl": "Max productie (W)"
-							},
-							"attr": { "min": 0 },
-							"value": 3000
-						}
-					]
-				}
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Ledring",
+            "nl": "Ledring"
+          },
+          "children": [
+            {
+              "id": "ledring_usage_limit",
+              "type": "number",
+              "label": {
+                "en": "Max consumption (W)",
+                "nl": "Max gebruik (W)"
+              },
+              "attr": {
+                "min": 0
+              },
+              "value": 3000
+            },
+            {
+              "id": "ledring_production_limit",
+              "type": "number",
+              "label": {
+                "en": "Max production (W)",
+                "nl": "Max productie (W)"
+              },
+              "attr": {
+                "min": 0
+              },
+              "value": 3000
+            }
+          ]
+        }
       ]
     }
   ],
-
-  "flow":	{
-    "triggers":[
+  "flow": {
+    "triggers": [
       {
-        "id":"tariff_changed",
+        "id": "tariff_changed",
         "title": {
-          "en":"Tariff has changed",
-          "nl":"Tarief is gewijzigd"
+          "en": "Tariff has changed",
+          "nl": "Tarief is gewijzigd"
         },
         "args": [
           {
@@ -286,26 +302,26 @@
             "placeholder": {
               "en": "Which device",
               "nl": "Welk apparaat"
-             }
+            }
           }
         ],
-        "tokens":[
+        "tokens": [
           {
-            "name":"tariff",
+            "name": "tariff",
             "type": "boolean",
             "title": {
-              "en":"off-peak",
-              "nl":"dal"
+              "en": "off-peak",
+              "nl": "dal"
             },
-            "example" : false
+            "example": false
           }
         ]
       },
       {
-        "id":"power_changed",
+        "id": "power_changed",
         "title": {
-          "en":"Power use changed",
-          "nl":"Stroomverbruik gewijzigd"
+          "en": "Power use changed",
+          "nl": "Stroomverbruik gewijzigd"
         },
         "args": [
           {
@@ -315,27 +331,27 @@
             "placeholder": {
               "en": "Which device",
               "nl": "Welk apparaat"
-             }
+            }
           }
         ],
-        "tokens":[
+        "tokens": [
           {
-            "name":"power",
+            "name": "power",
             "type": "number",
             "title": {
-              "en":"Watt",
-              "nl":"Watt"
+              "en": "Watt",
+              "nl": "Watt"
             },
-            "example" : 850
+            "example": 850
           },
           {
-            "name":"power_delta",
+            "name": "power_delta",
             "type": "number",
             "title": {
-              "en":"+- W",
-              "nl":"+- W"
+              "en": "+- W",
+              "nl": "+- W"
             },
-          "example" : 18
+            "example": 18
           }
         ]
       }
@@ -355,20 +371,20 @@
             "placeholder": {
               "en": "Which device",
               "nl": "Welk apparaat"
-             }
+            }
           }
         ]
       }
     ]
   },
   "screensavers": [
-		{
-			"name": "domoticz_p1_power",
-			"title": {
-				"en": "Domoticz P1 Power",
-				"nl": "Domoticz P1 Energie"
-			}
-		}
+    {
+      "name": "domoticz_p1_power",
+      "title": {
+        "en": "Domoticz P1 Power",
+        "nl": "Domoticz P1 Energie"
+      }
+    }
   ],
   "permissions": [
     "homey:manager:ledring"

@@ -1,7 +1,6 @@
 'use strict';
 
 const http = require('http');
-// const util = require('util');
 
 const meterPath = '/json.htm?type=devices&rid=';
 const defaultPort = 8080;
@@ -17,7 +16,7 @@ class DomoticzP1 {
 		this.gasId = gasId;
 	}
 
-	precisionRound(number, precision = 0) {
+	precisionRound(number, precision = 2) {
 		const factor = Math.pow(10, precision);
 		return Math.round(number * factor) / factor;
 	}
@@ -146,6 +145,7 @@ class DomoticzP1 {
 					try {
 						const responseJson = JSON.parse(result.body);
 						const counter = responseJson.result[0].Counter;
+						const counterToday = Number.parseFloat(responseJson.result[0].CounterToday);
 						const updateTime = responseJson.result[0].LastUpdate;
 
 						const gas = this.precisionRound(Number(counter));
@@ -154,6 +154,7 @@ class DomoticzP1 {
 						readings.g = {
 							gas,
 							gasTm,
+							gasToday: counterToday
 						};
 					} catch (error) {
 						// util.log('no gas readings available');
