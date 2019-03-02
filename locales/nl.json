@@ -5,18 +5,29 @@
 		"host": "IP adres",
 		"port": "Poort",
 		"username": "Gebruikersnaam",
-		"password": "Wachtwoord",
+		"password": "Wachtword",
 		"electricityId": "Elektriciteit device ID",
 		"gasId": "Gas device ID",
-		"required": "Het IP adres, de poort, gebruikersnaam, wachtwoord en device IDs zijn verplicht",
+		"required": "Het IP adres, de poort, gebruikersnaam, wachtwoord en device IDs zijn verplicht.",
 		"testSettings": "Opslaan",
 		"success": "Succes!"
 	},
 	"settings": {
-		"app": {
-			"title": "Domoticz P1 Debug Logs",
+		"benefit": "Integreer Domoticz P1 energie meter",
+		"tab1": {
+			"title": "Instructies",
+			"addDeviceTitle": "Voeg nieuw apparaat toe",
+			"addDeviceInstructions": "Voeg een nieuw apparaat toe via de Homey tab 'Apparaten'. De polling interval kan worden ingesteld in de apparaatinstellingen.",
+			"ledringTitle": "Zet LED ring aan",
+			"ledringInstructions": "De Homey LED ring kan laten zien hoeveel energie je verbruikt en produceert. Ga naar de Homey installing `LED Ring` en selecteer de `Domoticz P1 Power` screensaver."
+		},
+		"tab2": {
+			"title": "Debug Logs",
 			"logs": "Logs",
-			"getlogs": "Logs verversen"
+			"deletelogs": "Verwijder logs",
+			"updateLogs": "Ververs logs",
+			"deleteWarning": "Alle logs verwijderen?",
+			"deleted": "Logs verwijderd!"
 		}
 	}
 }

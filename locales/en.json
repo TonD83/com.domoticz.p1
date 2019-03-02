@@ -13,10 +13,21 @@
 		"success": "Success!"
 	},
 	"settings": {
-		"app": {
-			"title": "Domoticz P1 Debug Logs",
+		"benefit": "Integrate Domoticz P1 energy meter",
+		"tab1": {
+			"title": "Instructions",
+			"addDeviceTitle": "Add a new device",
+			"addDeviceInstructions": "Add a new device via the Homey tab `Devices`. The polling interval can be changed in the device settings.",
+			"ledringTitle": "Enable LED ring",
+			"ledringInstructions": "The Homey LED ring can show you how much energy you are using and producing. Go to the Homey settings `LED Ring` and select the `Domoticz P1 Power` screensaver."
+		},
+		"tab2": {
+			"title": "Debug Logs",
 			"logs": "Logs",
-			"getlogs": "Refresh logs"
+			"deletelogs": "Delete logs",
+			"updateLogs": "Refresh logs",
+			"deleteWarning": "Delete all logs?",
+			"deleted": "Logs deleted!"
 		}
 	}
 }

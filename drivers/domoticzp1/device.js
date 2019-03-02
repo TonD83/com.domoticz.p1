@@ -33,10 +33,7 @@ class DomoticzP1Device extends Homey.Device {
 			// register condition flow cards
 			const offPeakCondition = new Homey.FlowCardCondition('offPeak');
 			offPeakCondition.register()
-				.registerRunListener((args, state) => {
-					// this.log('offPeak condition flow card requested');
-					return Promise.resolve(this.meters.lastOffpeak);
-				});
+				.registerRunListener(() => Promise.resolve(this.meters.lastOffpeak));
 			// start polling device for info
 			this.intervalIdDevicePoll = setInterval(() => {
 				try {

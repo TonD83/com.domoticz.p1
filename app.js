@@ -14,11 +14,21 @@ class DomoticzP1App extends Homey.App {
 		process.on('unhandledRejection', (error) => {
 			this.error('unhandledRejection! ', error);
 		});
+		process.on('uncaughtException', (error) => {
+			this.error('uncaughtException! ', error);
+		});
 		Homey.on('unload', () => {
 			this.log('app unload called');
 			// save logs to persistant storage
 			this.logger.saveLogs();
-		});
+		})
+			.on('memwarn', () => {
+				this.log('memwarn!');
+			});
+		// do garbage collection every 10 minutes
+		this.intervalIdGc = setInterval(() => {
+			global.gc();
+		}, 1000 * 60 * 10);
 	}
 
 	// ============================================================
@@ -36,9 +46,9 @@ class DomoticzP1App extends Homey.App {
 		try {
 			// get the meter values
 			const meter = await this.domoticzP1.getMeter();
-			console.log(meter);
-		}	catch (error) {
-			console.log(error);
+			this.log(meter);
+		} catch (error) {
+			this.log(error);
 		}
 	}
 

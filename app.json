@@ -20,7 +20,7 @@
     "en": "Imports data from a Domoticz P1 energy meter",
     "nl": "Leest data van een Domoticz P1 energie meter"
   },
-  "version": "0.0.1",
+  "version": "1.0.0",
   "sdk": 2,
   "compatibility": ">= 1.5",
   "author": {
@@ -58,7 +58,9 @@
         "nl": "Is laag tarief actief?"
       },
       "getable": true,
-      "setable": false
+      "setable": false,
+      "insights": true,
+      "icon": "./drivers/domoticzp1/assets/images/offPeak_icon.svg"
     },
     "measure_gas": {
       "type": "number",
@@ -75,7 +77,9 @@
         "nl": "m\u00B3"
       },
       "getable": true,
-      "setable": false
+      "setable": false,
+      "insights": true,
+      "icon": "./drivers/domoticzp1/assets/images/gas_icon.svg"
     }
   },
   "drivers": [

@@ -26,5 +26,6 @@ The polling interval can be changed in the device settings.
 Version changelog
 
 ```
+v0.0.2  2019.03.02 Update for Homey V2.
 v0.0.1  2018.01.20 Initial release
 ```

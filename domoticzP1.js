@@ -120,8 +120,7 @@ class DomoticzP1 {
 							powerTm,
 						};
 					} catch (error) {
-						reject(Error('Error parsing power information'));
-						return readings;
+						return reject(Error('Error parsing power information'));
 					}
 					return resolve(readings);
 				})
